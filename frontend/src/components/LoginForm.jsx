@@ -1,20 +1,34 @@
 import { useFormik } from "formik";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import axios from "axios";
+import { ROUTES, API_ROUTES } from "../routes/routes.js";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logIn } from "../store/slices/authSlise.js";
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       username: "",
       password: "",
     },
-    onSubmit: (values) => {
-      console.log("Submitted values:", values);
+    onSubmit: async (values) => {
+      try {
+        const response = await axios.post(API_ROUTES.login(), values);
+        dispatch(logIn(response.data));
+        navigate(ROUTES.main);
+      } catch (e) {
+        console.error(e);
+      }
     },
   });
 
   return (
-    <Form>
+    <Form onSubmit={formik.handleSubmit}>
       <Form.Group>
         <Form.Label>
           Логин
