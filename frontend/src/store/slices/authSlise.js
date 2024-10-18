@@ -1,23 +1,25 @@
-import { createSlice } from "@reduxjs/toolkit";
+/* eslint-disable no-param-reassign */
+
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  token: localStorage.getItem("token") || null,
-  username: null,
+  username: JSON.parse(localStorage.getItem('user'))?.username || null,
+  token: JSON.parse(localStorage.getItem('user'))?.token || null,
 };
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     logIn: (state, { payload }) => {
-      localStorage.setItem("token", payload.token);
+      localStorage.setItem('user', JSON.stringify(payload));
       state.username = payload.username;
       state.token = payload.token;
     },
     logOut: (state) => {
       localStorage.clear();
-      state.token = null;
       state.username = null;
+      state.token = null;
     },
   },
 });
