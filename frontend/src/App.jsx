@@ -7,7 +7,7 @@ import Login from './pages/Login.jsx';
 import NotFound from './pages/404.jsx';
 import Header from './components/Header.jsx';
 
-const App = () => {
+const App = ({ socket }) => {
   const token = useSelector((state) => state.auth.token);
   return (
     <div className="d-flex flex-column h-100">
@@ -15,7 +15,7 @@ const App = () => {
       <Routes>
         <Route
           path={ROUTES.chat}
-          element={token ? <Chat /> : <Navigate to={ROUTES.login} />}
+          element={token ? <Chat socket={socket} /> : <Navigate to={ROUTES.login} />}
         />
         <Route path={ROUTES.login} element={<Login />} />
         <Route path={ROUTES.notFound} element={<NotFound />} />

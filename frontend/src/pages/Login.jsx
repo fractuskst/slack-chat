@@ -12,11 +12,7 @@ const Login = () => (
       <Col xs={12} md={8} xxl={6}>
         <Card className="shadow-sm">
           <Card.Body className="row p-5">
-            <Col
-              xs={12}
-              md={6}
-              className="d-flex align-items-center justify-content-center"
-            >
+            <Col xs={12} md={6} className="d-flex align-items-center justify-content-center">
               <img src={loginImage} alt="loginImage" />
             </Col>
             <LoginForm />

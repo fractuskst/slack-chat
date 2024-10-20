@@ -1,6 +1,6 @@
 /* eslint-disable object-curly-newline */
 import React from 'react';
-import { NavItem, Button, Dropdown, ButtonGroup } from 'react-bootstrap';
+import { Button, Dropdown, ButtonGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActive } from '../store/slices/channelsSlice.js';
 
@@ -9,7 +9,7 @@ const Channel = ({ channel }) => {
   const dispatch = useDispatch();
   const active = useSelector((state) => state.channels.activeChannel);
   return (
-    <NavItem className="w-100">
+    <li className="nav-item w-100">
       <Dropdown className="d-flex" as={ButtonGroup}>
         <Button
           variant={active.name === name ? 'secondary' : 'light'}
@@ -30,7 +30,7 @@ const Channel = ({ channel }) => {
           </Dropdown.Toggle>
         )}
       </Dropdown>
-    </NavItem>
+    </li>
   );
 };
 

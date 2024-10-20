@@ -1,1 +1,7 @@
 @import url('bootstrap/dist/css/bootstrap.min.css');
+
+html,
+body {
+  height: 100vh;
+  margin: 0;
+}
