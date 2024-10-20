@@ -12,7 +12,7 @@ const Header = () => {
     <Navbar expand="lg" className="shadow-sm navbar bg-white">
       <Container>
         <Link className="navbar-brand" to={ROUTES.chat}>
-          Chat
+          Hexlet Chat
         </Link>
         {token && <Button onClick={() => dispatch(logOut())}>Выйти</Button>}
       </Container>

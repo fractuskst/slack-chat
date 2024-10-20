@@ -2,7 +2,7 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+export const initialState = {
   activeChannel: {
     id: '1',
     name: 'general',

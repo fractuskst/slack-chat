@@ -1,30 +1,23 @@
-import React, { useEffect } from 'react';
+/* eslint-disable comma-dangle */
+/* eslint-disable object-curly-newline */
+import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { VscAdd } from 'react-icons/vsc';
 import Channels from '../components/Channels.jsx';
 import Messages from '../components/Messages.jsx';
 import Input from '../components/Input.jsx';
-import { messagesApi, useGetMessagesQuery } from '../store/api/messagesApi.js';
+import { useGetMessagesQuery } from '../store/api/messagesApi.js';
+import { openModal } from '../store/slices/modalsSlice.js';
+import renderModal from '../helpers/renderModal.jsx';
+import getMessagesForChannel from '../helpers/getMessagesForChannel.js';
 
-const Chat = ({ socket }) => {
+const Chat = () => {
   const dispatch = useDispatch();
   const { data = [] } = useGetMessagesQuery();
-  const { name } = useSelector((state) => state.channels.activeChannel);
-
-  useEffect(() => {
-    socket.on('newMessage', (message) => {
-      dispatch(
-        messagesApi.util.updateQueryData('getMessages', undefined, (draft) => {
-          draft.push(message);
-        })
-      );
-    });
-
-    return () => {
-      socket.off('newMessage');
-    };
-  }, [socket, dispatch]);
+  const { name, id } = useSelector((state) => state.channels.activeChannel);
+  const messagesForChannel = getMessagesForChannel(id, data);
+  const modalName = useSelector((state) => state.modals.name);
 
   return (
     <Container className="h-100 my-4 overflow-hidden rounded shadow">
@@ -32,7 +25,11 @@ const Chat = ({ socket }) => {
         <Col xs={4} md={2} className="border-end px-0 bg-light flex-column h-100 d-flex">
           <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
             <b>Каналы</b>
-            <Button size="sm" variant="outline-dark">
+            <Button
+              onClick={() => dispatch(openModal({ name: 'add' }))}
+              size="sm"
+              variant="outline-dark"
+            >
               <VscAdd />
               <span className="visually-hidden">+</span>
             </Button>
@@ -45,7 +42,7 @@ const Chat = ({ socket }) => {
               <p className="m-0">
                 <b>{`# ${name}`}</b>
               </p>
-              <span className="text-muted">{`${data.length} сообщений`}</span>
+              <span className="text-muted">{`${messagesForChannel.length} сообщений`}</span>
             </div>
             <Messages />
             <div className="mt-auto px-5 py-3">
@@ -54,6 +51,7 @@ const Chat = ({ socket }) => {
           </div>
         </Col>
       </Row>
+      {renderModal(modalName)}
     </Container>
   );
 };

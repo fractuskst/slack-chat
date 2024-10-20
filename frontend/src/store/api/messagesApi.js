@@ -7,9 +7,7 @@ export const messagesApi = createApi({
     baseUrl: API_ROUTES.messages(),
     prepareHeaders: (headers, { getState }) => {
       const { token } = getState().auth;
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
+      headers.set('Authorization', `Bearer ${token}`);
       return headers;
     },
   }),
@@ -24,7 +22,7 @@ export const messagesApi = createApi({
         method: 'POST',
         body: {
           body: payload.body,
-          id: payload.id,
+          channelId: payload.id,
           username: payload.username,
         },
       }),

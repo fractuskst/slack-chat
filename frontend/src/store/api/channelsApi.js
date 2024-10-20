@@ -7,9 +7,7 @@ export const channelsApi = createApi({
     baseUrl: API_ROUTES.channels(),
     prepareHeaders: (headers, { getState }) => {
       const { token } = getState().auth;
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
+      headers.set('Authorization', `Bearer ${token}`);
       return headers;
     },
   }),
