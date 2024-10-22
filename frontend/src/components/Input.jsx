@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { VscSend } from 'react-icons/vsc';
+import { useTranslation } from 'react-i18next';
 import { useCreateMessageMutation } from '../store/api/messagesApi.js';
 
 const Input = () => {
@@ -11,6 +12,7 @@ const Input = () => {
   const { id } = useSelector((state) => state.channels.activeChannel);
   const username = useSelector((state) => state.auth.username);
   const [createMessage] = useCreateMessageMutation();
+  const { t } = useTranslation();
 
   const handleChange = (e) => {
     setText(e.target.value);
@@ -45,7 +47,7 @@ const Input = () => {
           disabled={text.length === 0}
         >
           <VscSend />
-          <span className="visually-hidden">Отправить</span>
+          <span className="visually-hidden">{t('tips.send')}</span>
         </Button>
       </Form.Group>
     </Form>

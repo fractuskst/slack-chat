@@ -2,8 +2,6 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "My graduation study project",
-  "type": "module",
-  "main": "index.js",
   "scripts": {
     "build": "npm run build --prefix frontend",
     "start": "start-server -s ./frontend/dist"

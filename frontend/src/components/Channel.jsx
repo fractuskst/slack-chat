@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button, Dropdown, ButtonGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { setActive } from '../store/slices/channelsSlice.js';
 import { openModal } from '../store/slices/modalsSlice.js';
 
@@ -9,6 +10,7 @@ const Channel = ({ channel }) => {
   const { id, name, removable } = channel;
   const dispatch = useDispatch();
   const active = useSelector((state) => state.channels.activeChannel);
+  const { t } = useTranslation();
 
   return (
     <li className="nav-item w-100">
@@ -28,15 +30,15 @@ const Channel = ({ channel }) => {
             variant={active.name === name ? 'secondary' : 'light'}
             id="dropdown-split-basic"
           >
-            <span className="visually-hidden">Управление каналом</span>
+            <span className="visually-hidden">{t('tips.handleChannel')}</span>
           </Dropdown.Toggle>
         )}
         <Dropdown.Menu>
           <Dropdown.Item onClick={() => dispatch(openModal({ id, name: 'remove' }))}>
-            Удалить
+            {t('modals.remove')}
           </Dropdown.Item>
           <Dropdown.Item onClick={() => dispatch(openModal({ id, name: 'rename' }))}>
-            Переименовать
+            {t('modals.rename')}
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>

@@ -2,8 +2,9 @@ import React, { useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { useGetChannelsQuery, useCreateChannelMutation } from '../../store/api/channelsApi.js';
-import makeSchema from '../../helpers/modalValidation.js';
+import useModalValidation from '../../helpers/useModalValidation.js';
 import { setActive } from '../../store/slices/channelsSlice.js';
 import { closeModal } from '../../store/slices/modalsSlice.js';
 
@@ -11,8 +12,9 @@ const AddChannel = () => {
   const dispatch = useDispatch();
   const [createChannel] = useCreateChannelMutation();
   const { data: channels } = useGetChannelsQuery();
-  const schema = makeSchema(channels);
+  const schema = useModalValidation(channels);
   const inputRef = useRef(null);
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -40,7 +42,7 @@ const AddChannel = () => {
   return (
     <Modal centered show="true" onHide={() => dispatch(closeModal())}>
       <Modal.Header closeButton>
-        <Modal.Title>Добавить канал</Modal.Title>
+        <Modal.Title>{t('modals.addChannel')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
@@ -55,7 +57,7 @@ const AddChannel = () => {
               onChange={formik.handleChange}
             />
             <Form.Label className="visually-hidden" htmlFor="name">
-              Имя канала
+              {t('tips.channelName')}
             </Form.Label>
             <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>
           </Form.Group>
@@ -66,9 +68,9 @@ const AddChannel = () => {
               type="button"
               onClick={() => dispatch(closeModal())}
             >
-              Отменить
+              {t('modals.cancel')}
             </Button>
-            <Button type="submit">Отправить</Button>
+            <Button type="submit">{t('modals.submit')}</Button>
           </Form.Group>
         </Form>
       </Modal.Body>
