@@ -9,7 +9,7 @@ const useHandlers = () => {
     dispatch(
       messagesApi.util.updateQueryData('getMessages', undefined, (draft) => {
         draft.push(payload);
-      })
+      }),
     );
   };
 
@@ -17,7 +17,7 @@ const useHandlers = () => {
     dispatch(
       channelsApi.util.updateQueryData('getChannels', undefined, (draft) => {
         draft.push(payload);
-      })
+      }),
     );
   };
 
@@ -25,7 +25,7 @@ const useHandlers = () => {
     dispatch(
       channelsApi.util.updateQueryData('getChannels', undefined, (draft) => {
         return draft.filter((channel) => channel.id !== payload.id);
-      })
+      }),
     );
   };
 
@@ -38,7 +38,7 @@ const useHandlers = () => {
           }
           return channel;
         });
-      })
+      }),
     );
   };
 

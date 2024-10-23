@@ -4,6 +4,8 @@ import { Form, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { VscSend } from 'react-icons/vsc';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import filter from 'leo-profanity';
 import { useCreateMessageMutation } from '../store/api/messagesApi.js';
 
 const Input = () => {
@@ -20,8 +22,14 @@ const Input = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createMessage({ body: text, id, username });
-    setText('');
+    const censured = filter.clean(text);
+    try {
+      createMessage({ body: censured, id, username });
+      setText('');
+    } catch (error) {
+      console.error(error);
+      toast.error('errors.connection');
+    }
   };
 
   useEffect(() => {

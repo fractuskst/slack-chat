@@ -3,6 +3,8 @@ import { useFormik } from 'formik';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import filter from 'leo-profanity';
 import { useGetChannelsQuery, useCreateChannelMutation } from '../../store/api/channelsApi.js';
 import useModalValidation from '../../helpers/useModalValidation.js';
 import { setActive } from '../../store/slices/channelsSlice.js';
@@ -24,13 +26,16 @@ const AddChannel = () => {
     validateOnChange: false,
 
     onSubmit: async (values) => {
+      const censured = filter.clean(values.name);
       try {
-        createChannel(values.name).then(({ data }) => {
+        await createChannel(censured).then(({ data }) => {
           dispatch(setActive(data));
           dispatch(closeModal());
+          toast.success(t('toasts.channelAdd'));
         });
       } catch (e) {
         console.error(e);
+        toast.error(t('toasts.errors.channelAddError'));
       }
     },
   });

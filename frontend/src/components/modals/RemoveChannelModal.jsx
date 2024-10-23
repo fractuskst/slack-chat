@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { useRemoveChannelMutation } from '../../store/api/channelsApi.js';
 import { setActive, initialState } from '../../store/slices/channelsSlice.js';
 import { closeModal } from '../../store/slices/modalsSlice.js';
@@ -12,11 +13,16 @@ const RemoveChannel = () => {
   const channelId = useSelector((state) => state.modals.data);
   const { t } = useTranslation();
 
-  const handleSubmit = () => {
-    removeChannel(channelId).then(() => {
+  const handleSubmit = async () => {
+    try {
+      await removeChannel(channelId);
       dispatch(setActive(initialState.activeChannel));
       dispatch(closeModal());
-    });
+      toast.success(t('toasts.channelRemove'));
+    } catch (e) {
+      console.error(e);
+      toast.error(t('toasts.errors.channelRemoveError'));
+    }
   };
 
   return (

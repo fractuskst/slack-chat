@@ -3,6 +3,8 @@ import { useFormik } from 'formik';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import filter from 'leo-profanity';
 import { useGetChannelsQuery, useRenameChannelMutation } from '../../store/api/channelsApi.js';
 import useModalValidation from '../../helpers/useModalValidation.js';
 import { setActive } from '../../store/slices/channelsSlice.js';
@@ -27,13 +29,16 @@ const RenameChannel = () => {
     validateOnChange: false,
 
     onSubmit: async (values) => {
+      const censured = filter.clean(values.name);
       try {
-        renameChannel({ name: values.name, id: channelId }).then(({ data }) => {
+        await renameChannel({ name: censured, id: channelId }).then(({ data }) => {
           dispatch(setActive(data));
           dispatch(closeModal());
+          toast.success(t('toasts.channelRename'));
         });
       } catch (e) {
         console.error(e);
+        toast.error(t('toasts.errors.channelRenameError'));
       }
     },
   });

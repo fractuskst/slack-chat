@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { ROUTES, API_ROUTES } from '../routes/routes.js';
 import { logIn } from '../store/slices/authSlise.js';
 import useSignUpValidation from '../helpers/useSignUpValidation.js';
@@ -36,6 +37,7 @@ const SignUpForm = () => {
           setFieldError('confirmPassword', 'Такой пользователь уже существует');
         } else {
           console.error(e);
+          toast.error(t('errors.connection'));
         }
       }
     },

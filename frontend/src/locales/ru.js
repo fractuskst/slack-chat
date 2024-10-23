@@ -55,6 +55,11 @@ const ru = {
       handleChannel: 'Управление каналом',
       send: 'Отправить',
     },
+    toasts: {
+      channelRename: 'Канал переименован',
+      channelAdd: 'Канал создан',
+      channelRemove: 'Канал удалён',
+    },
   },
 };
 
