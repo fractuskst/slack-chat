@@ -30,7 +30,7 @@ const LoginForm = () => {
         if (e.response) {
           if (e.response.status === 401) {
             setError(t('forms.errors.wrongData'));
-            toast.error('forms.errors.wrongData');
+            toast.error(t('forms.errors.wrongData'));
           } else {
             setError(t('errors.connection'));
             toast.error(t('errors.connection'));
