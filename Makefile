@@ -1,9 +1,10 @@
-build:
-	npm run build
-
 install:
-	npm install
+	npm ci --prefix frontend
 
+build: install
+	rm -rf frontend/dist
+	npm --prefix frontend run build
+	
 start:
 	npx start-server -s ./frontend/dist
 
