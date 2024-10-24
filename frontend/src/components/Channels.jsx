@@ -14,9 +14,7 @@ const Channels = () => {
       {isLoading ? (
         <Spinner animation="border" variant="primary" />
       ) : (
-        data.map((channel) => {
-          return <Channel key={channel.id} channel={channel} />;
-        })
+        data.map((channel) => <Channel key={channel.id} channel={channel} />)
       )}
     </ul>
   );

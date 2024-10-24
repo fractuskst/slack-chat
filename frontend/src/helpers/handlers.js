@@ -23,22 +23,23 @@ const useHandlers = () => {
 
   const removeChannel = (payload) => {
     dispatch(
-      channelsApi.util.updateQueryData('getChannels', undefined, (draft) => {
-        return draft.filter((channel) => channel.id !== payload.id);
-      }),
+      channelsApi.util.updateQueryData(
+        'getChannels',
+        undefined,
+        (draft) => draft.filter((channel) => channel.id !== payload.id),
+      ),
     );
   };
 
   const renameChannel = (payload) => {
     dispatch(
-      channelsApi.util.updateQueryData('getChannels', undefined, (draft) => {
-        return draft.map((channel) => {
+      channelsApi.util.updateQueryData('getChannels', undefined, (draft) => (
+        draft.map((channel) => {
           if (payload.id === channel.id) {
             return { ...channel, name: payload.name };
           }
           return channel;
-        });
-      }),
+        }))),
     );
   };
 
