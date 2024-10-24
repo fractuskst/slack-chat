@@ -4,7 +4,7 @@
   "description": "My graduation study project",
   "scripts": {
     "build": "npm run build --prefix frontend",
-    "start": "start-server -s ./frontend/dist"
+    "start": "start-server -p 5000 -s ./frontend/dist"
   },
   "repository": {
     "type": "git",

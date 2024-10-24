@@ -6,7 +6,7 @@ build: install
 	npm --prefix frontend run build
 	
 start:
-	npx start-server -s ./frontend/dist
+	npx start-server -p 5000 -s ./frontend/dist
 
 start-backend:
-	npx start-server
+	npx start-server -p 5000
