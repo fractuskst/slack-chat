@@ -1,5 +1,5 @@
 install:
-	npm ci --prefix frontend
+	npm ci --prefix frontend && npm ci
 
 build:
 	rm -rf frontend/dist
