@@ -5,7 +5,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
 import { ROUTES, API_ROUTES } from '../routes/routes.js';
 import { logIn } from '../store/slices/authSlise.js';
 
@@ -30,10 +29,8 @@ const LoginForm = () => {
         if (e.response) {
           if (e.response.status === 401) {
             setError(t('forms.errors.wrongData'));
-            toast.error(t('forms.errors.wrongData'));
           } else {
             setError(t('errors.connection'));
-            toast.error(t('errors.connection'));
           }
         }
       }

@@ -13,15 +13,16 @@ const RemoveChannel = () => {
   const channelId = useSelector((state) => state.modals.data);
   const { t } = useTranslation();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
       await removeChannel(channelId);
       dispatch(setActive(initialState.activeChannel));
       dispatch(closeModal());
       toast.success(t('toasts.channelRemove'));
-    } catch (e) {
-      console.error(e);
-      toast.error(t('toasts.errors.channelRemoveError'));
+    } catch (err) {
+      console.error(err);
+      toast.error(t('errors.connection'));
     }
   };
 
