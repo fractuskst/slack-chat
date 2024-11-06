@@ -1,7 +1,6 @@
 # Проект "Hexlet Chat"
 
 [![Actions Status](https://github.com/fractuskst/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/fractuskst/frontend-project-12/actions)
-[![Maintainability](https://api.codeclimate.com/v1/badges/6ad68afd0dcfb18024db/maintainability)](https://codeclimate.com/github/fractuskst/frontend-project-12/maintainability)
 
 ## Описание проекта
 
