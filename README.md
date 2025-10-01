@@ -15,9 +15,8 @@
 ## Установка
 
 ```
-git clone git@github.com:fractuskst/frontend-project-12.git
-
-cd frontend-project-12
+git clone https://github.com/fractuskst/slack-chat.git
+cd slack-chat
 
 make install
 ```
